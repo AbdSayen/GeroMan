@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
+        StartCoroutine(AutoDelete());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -17,6 +18,18 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
+
+    private IEnumerator AutoDelete()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 }

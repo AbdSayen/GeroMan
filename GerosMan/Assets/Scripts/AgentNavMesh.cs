@@ -14,6 +14,14 @@ public class AgentNavMesh : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
+
     private void Update()
     {
         FollowPlayer();
